@@ -81,7 +81,7 @@ On se connecte en shell sur le container, puis on exécute mysql et on ajoute l'
 ```
 $ docker exec -it imie-mysql bash
 /# mysql -u root -p
-mysql> CREATE USER 'admin'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'imie';
+mysql> CREATE USER 'admin'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'mysql123';
 Query OK, 0 rows affected (0.13 sec)
 mysql> GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%' WITH GRANT OPTION;
 Query OK, 0 rows affected (0.07 sec)
