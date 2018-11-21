@@ -236,9 +236,9 @@ mysql> SELECT AVG(salary) FROM salaries WHERE from_date <= '1988-10-15' AND to_d
 
 
 ## SEL 18
-Quel était le salaire maximal au 15 octobre 1988 ?
+Quel était le salaire minimal au 15 octobre 1988 ?
 ```
-mysql> SELECT MAX(salary) FROM salaries WHERE from_date <= '1988-10-15' AND to_date > '1988-10-15';
+mysql> SELECT MIN(salary) FROM salaries WHERE from_date <= '1988-10-15' AND to_date > '1988-10-15';
 +-------------+
 | MIN(salary) |
 +-------------+
@@ -329,16 +329,59 @@ mysql> SELECT SUM(salary) FROM salaries WHERE from_date <= '1988-10-15' AND to_d
 
 ## SEL 21
 Combien y-avait-il d'employés par département le 15 octobre 1988 ?
-
+```
+mysql> SELECT d.dept_no, d.dept_name, COUNT(*) AS nombre_employes FROM dept_emp de, departments d WHERE de.dept_no = d.dept_no AND de.from_date <= '1988-10-15' AND de.to_date > '1988-10-15' GROUP BY dept_no ORDER BY dept_name;                                    +---------+--------------------+-----------------+
+| dept_no | dept_name          | nombre_employes |
++---------+--------------------+-----------------+
+| d009    | Customer Service   |            4240 |
+| d005    | Development        |           19665 |
+| d002    | Finance            |            3992 |
+| d003    | Human Resources    |            4042 |
+| d001    | Marketing          |            3976 |
+| d004    | Production         |           16131 |
+| d006    | Quality Management |            4029 |
+| d008    | Research           |            4106 |
+| d007    | Sales              |           11991 |
++---------+--------------------+-----------------+
+9 rows in set (2.70 sec)
+```
 
 ## SEL 22
 Quel est l'employé dont le salaire a le plus augmenté au cours de sa carrière ?
+```
+mysql> SELECT A.emp_no, e.first_name, e.last_name, e.gender, e.birth_date, e.hire_date, A.salaire_min, A.salaire_max, A.salaire_max - A.salaire_min AS augmentation FROM (SELECT emp_no, MIN(salary) AS salaire_min, MAX(salary) AS salaire_max FROM salaries GROUP BY emp_no) AS A, employees AS e WHERE A.emp_no = e.emp_no ORDER BY augmentation DESC LIMIT 1;
++--------+------------+-----------+--------+------------+------------+-------------+-------------+--------------+
+| emp_no | first_name | last_name | gender | birth_date | hire_date  | salaire_min | salaire_max | augmentation |
++--------+------------+-----------+--------+------------+------------+-------------+-------------+--------------+
+|  43145 | Fumino     | Frijda    | F      | 1958-02-09 | 1986-05-02 |       42514 |       96389 |        53875 |
++--------+------------+-----------+--------+------------+------------+-------------+-------------+--------------+
+1 row in set (6.42 sec)
+```
 
 ## SEL 23
 En quelle année y-a-t-il eu le plus d'embauche ?
+```
+mysql> SELECT COUNT(*) AS n_embauche, YEAR(hire_date) AS annee FROM employees GROUP BY annee ORDER BY n_embauche DESC LIMIT 1;
++------------+-------+
+| n_embauche | annee |
++------------+-------+
+|      36150 |  1986 |
++------------+-------+
+1 row in set (1.14 sec)
+```
+
 
 ## SEL 24
 En quelle année y-a-t-il eu le plus de départ ?
+```
+mysql> SELECT YEAR(end_date) AS annee, COUNT(*) AS n_departs FROM (SELECT emp_no, MAX(to_date) AS end_date FROM titles GROUP BY emp_no HAVING end_date <> '9999-01-01') AS D GROUP BY annee ORDER BY n_departs DESC LIMIT 1;
++-------+-----------+
+| annee | n_departs |
++-------+-----------+
+|  2000 |      7610 |
++-------+-----------+
+1 row in set (1.66 sec)
+```
 
 ## SEL 25
 Combien d'employés sont nés en 1957 ?
