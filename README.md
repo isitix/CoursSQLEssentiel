@@ -68,6 +68,6 @@ Nous travaillons à partir de l'exemple de base de données fourni par Mysql <ht
 - Installation de [l'environnement](./InstallationDeLEnvironnement.md)
 - Chargement de [la base de données](ChargementBaseTest.md)
 - Premiers exercices sur [les requêtes de sélection](./SELECT_PART1.md)
-
+- Premiers exercices sur [insertion, suppression, mise à jour, création de table](./INSERT_PART1.md)
 
 
