@@ -385,12 +385,49 @@ mysql> SELECT YEAR(end_date) AS annee, COUNT(*) AS n_departs FROM (SELECT emp_no
 
 ## SEL 25
 Combien d'employés sont nés en 1957 ?
+```
+mysql> SELECT COUNT(*) FROM employees WHERE YEAR(birth_date)=1957;
++----------+
+| COUNT(*) |
++----------+
+|    22850 |
++----------+
+1 row in set (0.35 sec)
+```
+
+
 Parmi ses employés, quelle est la proportion de femmes ?
+```
+mysql> SELECT A.n_femmes, B.n_employes, A.n_femmes / B.n_employes AS proportion_femme  FROM (SELECT COUNT(*) n_femmes FROM employees WHERE YEAR(birth_date)=1957 AND gender='F') AS A, (SELECT COUNT(*) n_employes FROM employees WHERE YEAR(birth_date)=1957) AS B;
++----------+------------+------------------+
+| n_femmes | n_employes | proportion_femme |
++----------+------------+------------------+
+|     9069 |      22850 |           0.3969 |
++----------+------------+------------------+
+1 row in set (0.84 sec)
+```
 
 ## SEL 26
-Combien y-avait-il d'employés nés en 1960 dans l'entreprise au 15 février 1984 ?
+Combien y-avait-il d'employés nés en 1960 dans l'entreprise au 15 février 1985 ?
+```
+mysql> SELECT COUNT(DISTINCT s.emp_no) FROM salaries AS s, employees AS e WHERE s.from_date <= '1985-02-15' AND s.to_date > '1985-02-15' AND s.emp_no = e.emp_no AND YEAR(e.birth_date)= 1960;
++--------------------------+
+| COUNT(DISTINCT s.emp_no) |
++--------------------------+
+|                       66 |
++--------------------------+
+1 row in set (5.49 sec)
+```
 
 ## SEL 27
 Quel était le salaire moyen des employés nés en 1960 le 15 février 1984 ?
-
+```
+mysql> SELECT COUNT(DISTINCT s.emp_no) AS n_employes_1960, AVG(salary) AS salaire_moyen_1960 FROM salaries AS s, employees AS e WHERE s.from_date <= '1985-02-15' AND s.to_date > '1985-02-15' AND s.emp_no = e.emp_no AND YEAR(e.birth_date)= 1960;
++-----------------+--------------------+
+| n_employes_1960 | salaire_moyen_1960 |
++-----------------+--------------------+
+|              66 |         49765.7879 |
++-----------------+--------------------+
+1 row in set (4.99 sec)
+```
 
