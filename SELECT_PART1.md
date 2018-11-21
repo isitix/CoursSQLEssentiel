@@ -165,27 +165,171 @@ mysql> SELECT e.emp_no, e.first_name, e.last_name FROM titles AS t, employees AS
 
 ## SEL 14
 Quel département le département manager le plus ancien manage-t-il ?
+```
+mysql> SELECT e.emp_no, e.birth_date, e.first_name, e.last_name, e.gender, e.hire_date, dm.dept_no, d.dept_name, dm.from_dato_date  FROM dept_manager AS dm, employees AS e, departments AS d  WHERE dm.emp_no = e.emp_no AND dm.dept_no = d.dept_no AND dm.to_date = '9999-01-01' ORDER BY birth_date LIMIT 1;
++--------+------------+------------+-----------+--------+------------+---------+-----------+------------+------------+
+| emp_no | birth_date | first_name | last_name | gender | hire_date  | dept_no | dept_name | from_date  | to_date    |
++--------+------------+------------+-----------+--------+------------+---------+-----------+------------+------------+
+| 111534 | 1952-06-27 | Hilary     | Kambil    | F      | 1988-01-31 | d008    | Research  | 1991-04-08 | 9999-01-01 |
++--------+------------+------------+-----------+--------+------------+---------+-----------+------------+------------+
+1 row in set (0.00 sec)
+```
+
 
 ## SEL 15
 Combien y-avait-il d'employés au 15 octobre 1988 ?
+3 solutions possibles :
+- toutes les personnes qui percevaient un salaire à la date considérée
+- toutes les personnes qui avaient une fonction dans la société à la date considérée
+- toutes les personnes qui travaillaient dans un département de l'entreprise à la date considérée.
+
+```
+mysql> SELECT COUNT(*) AS nombre_employes FROM salaries WHERE from_date <= '1988-10-15' AND to_date > '1988-10-15';
++-----------------+
+| nombre_employes |
++-----------------+
+|           72172 |
++-----------------+
+1 row in set, 1 warning (4.24 sec)
+
+mysql> SELECT COUNT(*) AS nombre_employes FROM titles WHERE from_date <= '1988-10-15' AND to_date > '1988-10-15';
++-----------------+
+| nombre_employes |
++-----------------+
+|           72172 |
++-----------------+
+1 row in set, 1 warning (0.68 sec)
+
+mysql> SELECT COUNT(*) AS nombre_employes FROM dept_emp WHERE from_date <= '1988-10-15' AND to_date > '1988-10-15';
++-----------------+
+| nombre_employes |
++-----------------+
+|           72172 |
++-----------------+
+1 row in set, 1 warning (0.49 sec)
+```
 
 ## SEL 16
 Quelle était la moyenne d'âge des employés au 15 octobre 1988 ?
+```
+mysql> SELECT AVG(DATEDIFF('1988-10-15', birth_date))/365 FROM employees AS e, titles AS t WHERE e.emp_no = t.emp_no AND t.from_date <= '1988-10-15' AND t.to_date>'1988-10-15';
++---------------------------------------------+
+| AVG(DATEDIFF('1988-10-15', birth_date))/365 |
++---------------------------------------------+
+|                                 30.22882961 |
++---------------------------------------------+
+1 row in set (1.70 sec)
+```
+
 
 ## SEL 17
 Quel était le salaire moyen des employés au 15 octobre 1988 ?
+```
+mysql> SELECT AVG(salary) FROM salaries WHERE from_date <= '1988-10-15' AND to_date > '1988-10-15';
++-------------+
+| AVG(salary) |
++-------------+
+|  55719.3580 |
++-------------+
+1 row in set (4.31 sec)
+```
+
 
 ## SEL 18
 Quel était le salaire maximal au 15 octobre 1988 ?
+```
+mysql> SELECT MAX(salary) FROM salaries WHERE from_date <= '1988-10-15' AND to_date > '1988-10-15';
++-------------+
+| MIN(salary) |
++-------------+
+|       38888 |
++-------------+
+1 row in set (4.31 sec)
+```
+
 
 ## SEL 19
 Qui avait le plus gros salaire au 15 octobre 1988 ?
 
+Solution en n étapes : 
+```
+mysql> SELECT MAX(salary) FROM salaries WHERE from_date <= '1988-10-15' AND to_date > '1988-10-15';
++-------------+
+| MAX(salary) |
++-------------+
+|      132511 |
++-------------+
+1 row in set (4.28 sec)
+
+mysql> SELECT * FROM salaries WHERE salary = 132511;
++--------+--------+------------+------------+
+| emp_no | salary | from_date  | to_date    |
++--------+--------+------------+------------+
+| 109334 | 132511 | 1988-02-15 | 1989-02-14 |
++--------+--------+------------+------------+
+1 row in set (3.77 sec)
+
+mysql> SELECT * FROM employees WHERE emp_no = 109334;  
++--------+------------+------------+-----------+--------+------------+
+| emp_no | birth_date | first_name | last_name | gender | hire_date  |
++--------+------------+------------+-----------+--------+------------+
+| 109334 | 1955-08-02 | Tsutomu    | Alameldin | M      | 1985-02-15 |
++--------+------------+------------+-----------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM titles WHERE emp_no = 109334;  
++--------+--------------+------------+------------+
+| emp_no | title        | from_date  | to_date    |
++--------+--------------+------------+------------+
+| 109334 | Senior Staff | 1993-02-15 | 9999-01-01 |
+| 109334 | Staff        | 1985-02-15 | 1993-02-15 |
++--------+--------------+------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM dept_emp WHERE emp_no = 109334;
++--------+---------+------------+------------+
+| emp_no | dept_no | from_date  | to_date    |
++--------+---------+------------+------------+
+| 109334 | d007    | 1985-02-15 | 9999-01-01 |
++--------+---------+------------+------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM departments WHERE dept_no = 'd007';
++---------+-----------+
+| dept_no | dept_name |
++---------+-----------+
+| d007    | Sales     |
++---------+-----------+
+1 row in set (0.00 sec)
+```
+
+Solution en une seule étape :
+```
+mysql> SELECT e.emp_no, e.birth_date, e.first_name, e.last_name, e.hire_date, s.salary, t.title, d.dept_name, '1988-10-15' AS curr_date FROM employees e, salaries s, titles t, dept_emp de, departments d WHERE e.emp_no = s.emp_no AND  e.emp_no = t.emp_no AND e.emp_no = de.emp_no AND de.dept_no = d.dept_no AND s.from_date <= '1988-10-15' AND s.to_date > '1988-10-15' AND t.from_date <= '1988-10-15' AND t.to_date > '1988-10-15' AND salary IN (SELECT MAX(salary) FROM salaries WHERE from_date <= '1988-10-15' AND to_date > '1988-10-15');
++--------+------------+------------+-----------+------------+--------+-------+-----------+------------+
+| emp_no | birth_date | first_name | last_name | hire_date  | salary | title | dept_name | curr_date  |
++--------+------------+------------+-----------+------------+--------+-------+-----------+------------+
+| 109334 | 1955-08-02 | Tsutomu    | Alameldin | 1985-02-15 | 132511 | Staff | Sales     | 1988-10-15 |
++--------+------------+------------+-----------+------------+--------+-------+-----------+------------+
+1 row in set (11.25 sec)
+```
+
+
 ## SEL 20 
 Quel était la masse salariale au 15 octobre 1988 ?
+```
+mysql> SELECT SUM(salary) FROM salaries WHERE from_date <= '1988-10-15' AND to_date > '1988-10-15';
++-------------+
+| SUM(salary) |
++-------------+
+|  4021377507 |
++-------------+
+1 row in set (4.46 sec)
+```
 
 ## SEL 21
-Combien y-avait-il en moyenne d'employés par département le 15 octobre 1988 ?
+Combien y-avait-il d'employés par département le 15 octobre 1988 ?
+
 
 ## SEL 22
 Quel est l'employé dont le salaire a le plus augmenté au cours de sa carrière ?
