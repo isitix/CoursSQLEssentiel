@@ -6,6 +6,9 @@ La société est un groupe international réparti dans plusieurs pays. Créer un
 - currency_code : CHAR(3)
 - currency : VARCHAR(16)
 
+Voir le [script correspondant](./countries.sql) pour avoir la solution
+
+
 Appuyez-vous sur cette table  <http://www.casi.org.uk/info/1051list/annexd.html> pour la suite des questions
 
 ## INS 1
