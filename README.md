@@ -72,5 +72,6 @@ Nous travaillons à partir de l'exemple de base de données fourni par Mysql <ht
 - QCM1 <https://goo.gl/forms/Qqdnz33cFleavOdI3>
 - Exemple [insertion, mise à jour, suppression](./EXEMPLES_INSERT_UPDATE_DELETE.md) vus en cours
 - QCM2 <https://goo.gl/forms/fr6XmptnCJk2liVA2>
+- Quelques éléments concernant [la sauvegarde des bases de données](SAUVEGARDE.md)
 
 
