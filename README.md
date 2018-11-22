@@ -70,5 +70,7 @@ Nous travaillons à partir de l'exemple de base de données fourni par Mysql <ht
 - Premiers exercices sur [les requêtes de sélection](./SELECT_PART1.md)
 - Premiers exercices sur [insertion, suppression, mise à jour, création de table](./INSERT_PART1.md)
 - QCM1 <https://goo.gl/forms/Qqdnz33cFleavOdI3>
-- Exemple [insertion, mise à jour, suppression](./EXEMPLES_INSERT_UPDATE_DELETE) vus en cours
+- Exemple [insertion, mise à jour, suppression](./EXEMPLES_INSERT_UPDATE_DELETE.md) vus en cours
+- QCM2 <https://goo.gl/forms/fr6XmptnCJk2liVA2>
+
 
