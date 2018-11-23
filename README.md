@@ -73,5 +73,6 @@ Nous travaillons à partir de l'exemple de base de données fourni par Mysql <ht
 - Exemple [insertion, mise à jour, suppression](./EXEMPLES_INSERT_UPDATE_DELETE.md) vus en cours
 - QCM2 <https://goo.gl/forms/fr6XmptnCJk2liVA2>
 - Quelques éléments concernant [la sauvegarde des bases de données](SAUVEGARDE.md)
-
-
+- Des exemples de [jointures externes](./OUTER_JOIN.md)
+- Des exemples d'utilisation des [vues des triggers, des fonctions et procédures stockées](./AUTRES_FONCTIONS.md)
+- Un dernier QCM sur les éléments vus en cours <https://goo.gl/forms/nu0TPMwZvSa6GSgj1>

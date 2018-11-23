@@ -12,25 +12,4 @@ CREATE TABLE countries (
     UNIQUE KEY (name)
 );
 ALTER TABLE countries MODIFY COLUMN name VARCHAR(32) NOT NULL;
-INSERT INTO countries (name, country_code, currency_code, currency)  VALUES ('FRANCE', 'FRA', 'FRF', 'Franc');
-INSERT INTO countries (name, country_code, currency_code, currency)  VALUES ('UNITED STATES', 'USA','USD','Dollar');
-INSERT INTO countries (name, country_code, currency_code, currency)  VALUES ( 
-    'UNITED KINGDOM',
-    'GBR',
-    'GBP',
-    'Pound Sterling'),
-    (
-    'GERMANY',
-    'DEU',
-    'DEM',
-    'Mark'),
-    (
-        'SWITZERLAND',
-        'CHE',
-        'CHF',
-        'Franc'),
-    (
-        'POLAND',
-        'POL',
-        'PLZ',
-    'Zloty');
+ALTER TABLE countries MODIFY COLUMN currency VARCHAR(32) NOT NULL;
