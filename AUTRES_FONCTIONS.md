@@ -5,6 +5,103 @@ Créer un utilisateur consultation dont les droits sont limités de la manière 
 - SELECT uniquement sur la table
 - Accès uniquement depuis le réseau local IMIE
 
+
+### Présentation brève
+Le serveur comporte une base spécifique mysql qui contient les droits des utilisateurs :
+```
+mysql> SHOW databases;
++--------------------+
+| Database           |
++--------------------+
+| articles           |
+| employees          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+```
+La base mysql comporte les informations concernant les utilisateurs et leurs droits :
+```
+mysql> use mysql
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW tables;
++---------------------------+
+| Tables_in_mysql           |
++---------------------------+
+| columns_priv              |
+| component                 |
+| db                        |
+| default_roles             |
+| engine_cost               |
+| func                      |
+| general_log               |
+| global_grants             |
+| gtid_executed             |
+| help_category             |
+| help_keyword              |
+| help_relation             |
+| help_topic                |
+| innodb_index_stats        |
+| innodb_table_stats        |
+| password_history          |
+| plugin                    |
+| procs_priv                |
+| proxies_priv              |
+| role_edges                |
+| server_cost               |
+| servers                   |
+| slave_master_info         |
+| slave_relay_log_info      |
+| slave_worker_info         |
+| slow_log                  |
+| tables_priv               |
+| time_zone                 |
+| time_zone_leap_second     |
+| time_zone_name            |
+| time_zone_transition      |
+| time_zone_transition_type |
+| user                      |
++---------------------------+
+33 rows in set (0.01 sec)
+```
+La table user de la base mysql comporte les informations concernant les utilisateurs :
+```
+mysql> SELECT User, Host from user;
++------------------+-----------+
+| User             | Host      |
++------------------+-----------+
+| admin            | %         |
+| root             | %         |
+| root             | 127.0.0.1 |
+| mysql.infoschema | localhost |
+| mysql.session    | localhost |
+| mysql.sys        | localhost |
+| root             | localhost |
++------------------+-----------+
+7 rows in set (0.00 sec)
+```
+Tous les éléments se trouvent dans la documentation de référence de mysql
+
+### Création d'un nouvel utilisateur
+```
+mysql> CREATE USER 'consultation'@'172.17.2.%' IDENTIFIED BY 'consultation';
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> GRANT SELECT ON employees.employees to 'consultation'@'172.17.2.%';
+Query OK, 0 rows affected (0.12 sec)
+```
+
+
+
+
+
+
+
 ## Fonctions
 Une prime est versée au 1er février de chaque année aux salariés sur la base suivante :
 - si le salaire est inférieur à 70000$ et l'anciennetée supérieure à 3 ans, la prime est de i2000$
