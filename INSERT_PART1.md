@@ -52,7 +52,7 @@ INSERT INTO countries (name, country_code, currency_code, currency)  VALUES (
 'POL',
 'PLZ',
 'Zloty');
-
+```
 
 ## INS 4
 Ajouter à la table tous les pays dont le nom commencent par B.
