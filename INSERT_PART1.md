@@ -189,7 +189,7 @@ mysqldump -u root -p employees countries > countries.sql
 
 ### Etape 5 Restorer la table
 - Désactiver les clés étrangères
-- Charger le dump <./countries.sql>
+- Charger [le dump](./countries.sql)
 - Réactiver les clés étrangères
 
 ```
