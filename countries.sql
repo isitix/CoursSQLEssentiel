@@ -1,15 +1,54 @@
-# Table des codes et des devis pour pouvoir 
-# convertir les salaires de la monnaie locale en dollars
-# MDY 20181123
-USE employees;
-DROP TABLE IF EXISTS countries;
-CREATE TABLE countries (
-    country_code CHAR(3) NOT NULL,
-    name CHAR(3) NOT NULL,
-    currency_code CHAR(3),
-    currency VARCHAR(16),
-    PRIMARY KEY (country_code),
-    UNIQUE KEY (name)
-);
-ALTER TABLE countries MODIFY COLUMN name VARCHAR(32) NOT NULL;
-ALTER TABLE countries MODIFY COLUMN currency VARCHAR(32) NOT NULL;
+-- MySQL dump 10.13  Distrib 8.0.13, for Linux (x86_64)
+--
+-- Host: localhost    Database: employees
+-- ------------------------------------------------------
+-- Server version	8.0.13
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+ SET NAMES utf8mb4 ;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `countries`
+--
+
+DROP TABLE IF EXISTS `countries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `countries` (
+  `country_code` char(64) NOT NULL,
+  `name` varchar(32) NOT NULL,
+  `currency_code` char(3) NOT NULL,
+  `currency` varchar(32) NOT NULL,
+  PRIMARY KEY (`country_code`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `countries`
+--
+
+LOCK TABLES `countries` WRITE;
+/*!40000 ALTER TABLE `countries` DISABLE KEYS */;
+INSERT INTO `countries` VALUES ('ABW','ARUBA','AWG','Florin'),('AFG','AFGHANISTAN','AFA','Afghani'),('AGO','ANGOLA','AON','New Kwanza'),('AIA','ANGUILLA','XCD','East Caribb. Dollar'),('ALB','ALBANIA','ALL','Lek'),('AND','ANDORRA','FAF','Franc / Peseta'),('ANT','NETHERLANDS ANTILLES','ANG','Guilder'),('ARE','UNITED ARAB EMIRATES','AED','Dirham'),('ARG','ARGENTINA','ARS','Peso'),('ARM','ARMENIA','AMD','Dram'),('ASM','AMERICAN SAMOA','USD','Dollar / Peseta'),('ATA','ANTARCTICA','-','-'),('ATF','FRENCH SOUTHERN TERRITOR.','FRF','Franc'),('ATG','ANTIGUA AND BARBUDA','XCD','East Caribb. Dollar'),('AUS','AUSTRALIA','AUD','Australia Dollar'),('AUT','AUSTRIA','ATS','Schilling'),('AZE','AZERBAIJAN','AZM','Manet'),('BAT','VATICAN CITY STATE (HOLY SEE)','ITL','Lira'),('BDI','BURUNDI','BIF','Franc'),('BEL','BELGIUM','BEF','Franc'),('BEN','BENIN','XOF','C.F.A. Franc'),('BFA','BURKINA FASO','XOF','C.F.A. Franc'),('BGD','BANGLADESH','BDT','Taka'),('BGR','BULGARIA','BGL','Lev'),('BHR','BAHRAIN','BHD','Dinar'),('BHS','BAHAMAS','BSD','Bahamas Dollar'),('BIH','BOSNIA AND HERZEGOWINA','-','-'),('BLR','BELARUS','BYB','Belarussian Rouble'),('BLZ','BELIZE','BZD','Dollar'),('BMU','BERMUDA','BMD','Dollar'),('BOL','BOLIVIA','BOB','Boliviano'),('BRA','BRAZIL','BRL','Real'),('BRB','BARBADOS','BBD','Dollar'),('BRN','BRUNEI DARUSSALAM','BND','Dollar'),('BTN','BHUTAN','INR','Ngultrum / Ind. Rupee'),('BVT','BOUVET ISLAND','NOK','Norwegian Krone'),('BWA','BOTSWANA','BWP','Pula'),('CAF','CENTRAL AFRICAN REPUBLIC','XAF','C.F.A. Franc'),('CAN','CANADA','CAD','Dollar'),('CCK','COCOS (KEELING) ISLANDS','AUD','Australia Dollar'),('CHE','SWITZERLAND','CHF','Franc'),('CHL','CHILE','CLP','Peso'),('CHN','CHINA','CNY','Renminbi Yuan'),('CIV','COTE D\'IVOIRE','XOF','C.F.A. Franc'),('CMR','CAMEROON','XAF','C.F.A. Franc'),('COG','CONGO','XAF','C.F.A. Franc'),('COK','COOK ISLANDS','NZD','N.Z. Dollar'),('COL','COLOMBIA','COP','Peso'),('COM','COMOROS','KMF','Franc'),('CPV','CAPE VERDE','CVE','Escudo'),('CRI','COSTA RICA','CRC','Colon'),('CUB','CUBA','CUP','Peso'),('CXR','CHRISTMAS ISLAND','AUD','Australia Dollar'),('CYM','CAYMAN ISLANDS','CYD','Dollar'),('CYP','CYPRUS','CYP','Pound'),('CZE','CZECH REPUBLIC','CZK','Koruna'),('DEU','GERMANY','DEM','Mark'),('DJI','DJIBOUTI','DJF','Djibouti Franc'),('DMA','DOMINICA','XCD','East Caribb. Dollar'),('DNK','DENMARK','DKK','Danish Krone'),('DOM','DOMINICAN REPUBLIC','DOP','Peso'),('DZA','ALGERIA','DZD','Dinar'),('ECU','ECUADOR','ECS','Sucre'),('EGY','EGYPT','EGP','Pound'),('ERI','ERITREA','-','-'),('ESH','WESTERN SAHARA','MAD','Morocco Dirham'),('ESP','SPAIN','ESP','Peseta'),('EST','ESTONIA','EEK','Kroon'),('ETH','ETHIOPIA','ETB','Birr'),('FIN','FINLAND','FIM','Markka'),('FJI','FIJI','FJD','Dollar'),('FLK','FALKLAND ISLANDS (MALVINAS)','FKP','Pound'),('FRA','FRANCE','FRF','Franc'),('FRO','FAEROE ISLANDS','DKK','Danish Krone'),('FSM','MICRONESIA (FED. STATES OF)','USD','Dollar'),('GAB','GABON','XAF','C.F.A. Franc'),('GBR','UNITED KINGDOM','GBP','Pound Sterling'),('GEO','GEORGIA','GEL','Lari (1)'),('GHA','GHANA','GHC','Cedi'),('GIB','GIBRALTAR','GIP','Pound'),('GIN','GUINEA','GNF','Franc'),('GLP','GUADELOUPE','FRF','Franc'),('GMB','GAMBIA','GMD','Dalasi'),('GNB','GUINEA-BISSAU','GWP','Peso'),('GNQ','EQUATORIAL GUINEA','XAF','C.F.A. Franc'),('GRC','GREECE','GRD','Drachma'),('GRD','GRENADA','XCD','East Caribb. Dollar'),('GRL','GREENLAND','DKK','Danish Krone'),('GTM','GUATEMALA','GTQ','Quetzal'),('GUF','FRENCH GUIANA','FRF','Franc'),('GUM','GUAM','USD','Dollar'),('GUY','GUYANA','GYD','Guyana Dollar'),('HKG','HONG KONG','HKD','Hong Kong Dollar'),('HMD','HEARD AND MC DONALD ISLANDS','AUD','Australia Dollar'),('HND','HONDURAS','HNL','Lempira'),('HRV','CROATIA','HRK','Kuna'),('HTI','HAITI','HTG','Gourde / Dollar'),('HUN','HUNGARY','HUF','Forint'),('IDN','INDONESIA','IDR','Rupiah'),('IND','INDIA','INR','Rupee'),('IOT','BRIT. INDIAN OCEAN TERRITORY','USD','Dollar'),('IRL','IRELAND','IRP','Punt'),('IRN','IRAN','IRR','Rial'),('IRQ','IRAQ','IQD','Dinar'),('ISL','ICELAND','ISK','Krona'),('ISR','ISRAEL','ILS','New Shekel'),('ITA','ITALY','ITL','Lira'),('JAM','JAMAICA','JMD','Dollar'),('JOR','JORDAN','JOD','Dinar'),('JPN','JAPAN','JPY','Yen'),('KAZ','KAZAKHSTAN','KZT','Tongo'),('KEN','KENYA','KES','Shilling'),('KGZ','KYRGYZSTAN','KGS','Som'),('KHM','CAMBODIA','KHR','Riel'),('KIR','KIRIBATI','AUD','Australia Dollar'),('KNA','SAINT KITTS AND NEVIS','XCD','East Caribb. Dollar'),('KOR','KOREA REPUBLIC OF','KRW','Won'),('KWT','KUWAIT','KWD','Dinar'),('LAO','LAO PEOPLE\'S DEMOCRATIC REP.','LAK','Kip'),('LBN','LEBANON','LBP','Pound'),('LBR','LIBERIA','LBD','Dollar'),('LBY','LIBYAN ARAB JAMAHIRIYA','LYD','Dinar'),('LCA','SAINT LUCIA','XCD','East Caribb. Dollar'),('LIE','LIECHTENSTEIN','CHF','Franc'),('LKA','SRI LANKA','LKR','Rupee'),('LSO','LESOTHO','ZAR','Rand / Loti'),('LTU','LITHUANIA','LTL','Litas'),('LUX','LUXEMBOURG','LUF','Lux. Franc'),('LVA','LATVIA','LVR','Lat / Latv. Rouble'),('MAC','MACAU','MOD','Pataca'),('MAR','MOROCCO','MAD','Dirham'),('MCO','MONACO','FRF','Franc'),('MDA','MOLDOVA REPUBLIC OF','MDL','Lou'),('MDG','MADAGASCAR','MGF','Franc'),('MDV','MALDIVES','MVR','Rufiyaa'),('MEX','MEXICO','MXN','New Peso'),('MHL','MARSHALL ISLANDS','USD','Dollar'),('MKD','MACEDONIA','MKD','Macedonia Denar'),('MLI','MALI','XOF','C.F.A. Franc'),('MLT','MALTA','MTL','Lira'),('MMR','MYANMAR','MMK','Kyat'),('MNG','MONGOLIA','MNT','Tugrik'),('MNP','NORTHERN MARIANA ISLANDS','USD','Dollar'),('MOZ','MOZAMBIQUE','MZM','Metical'),('MRT','MAURITANIA','MRO','Ouguiya'),('MSR','MONTSERRAT','XCD','East Caribb. Dollar'),('MTQ','MARTINIQUE','FRF','Franc'),('MUS','MAURITIUS','MUR','Rupee'),('MWI','MALAWI','MWK','Kwacha'),('MYS','MALAYSIA','MYR','Ringgit'),('NAM','NAMIBIA','NAD','Rand / Nam. Dollar'),('NCL','NEW CALEDONIA','XPF','C.F.P. Franc'),('NER','NIGER','XOF','C.F.A. Franc'),('NFK','NORFOLK ISLAND','AUD','Australia Dollar'),('NGA','NIGERIA','NGN','Naira'),('NIC','NICARAGUA','NIO','Gold Cordoba'),('NIU','NIUE','NZD','N.Z. Dollar'),('NLD','NETHERLANDS','NLG','Guilder'),('NOR','NORWAY','NOK','Norwegian Krone'),('NPL','NEPAL','NPR','Rupee'),('NRU','NAURU','AUD','Australia Dollar'),('NZL','NEW ZEALAND','NZD','N.Z. Dollar'),('OMN','OMAN','OMR','Rial'),('PAK','PAKISTAN','PKR','Rupee'),('PAN','PANAMA','PAB','Balboa / Dollar'),('PCN','PITCAIRN','NZD','N.Z. Dollar'),('PER','PERU','PEN','New Sol'),('PHL','PHILIPPINES','PHP','Peso'),('PLW','PALAU','USD','Dollar'),('PNG','PAPUA NEW GUINEA','PGK','Kina'),('POL','POLAND','PLZ','Zloty'),('PRI','PUERTO RICO','USD','Dollar'),('PRK','KOREA DEM. PEOPLE S REP. OF','KPW','Won'),('PRT','PORTUGAL','PTE','Escudo'),('PRY','PARAGUAY','PYG','Guarani'),('PYF','FRENCH POLYNESIA','XPF','C.F.P. Franc'),('QAT','QATAR','QAR','Riyal'),('REU','REUNION','FRF','Franc'),('ROM','ROMANIA','ROL','Leu'),('RUS','RUSSIAN FEDERATION','RUR','Rouble'),('RWA','RWANDA','RWF','Franc'),('SAU','SAUDI ARABIA','SAR','Riyal'),('SDN','SUDAN','SDP','Sud. Pound / Dinar'),('SEN','SENEGAL','XOF','C.F.A. Franc'),('SGP','SINGAPORE','SGD','Dollar'),('SHN','ST. HELENA','SHP','Pound Sterling'),('SJM','SVALBARD / JAN MAYEN IS.','NOK','Norwegian Krone'),('SLB','SOLOMON ISLANDS','SBD','Solom. Dollar'),('SLE','SIERRA LEONE','SLL','Leone'),('SLV','EL SALVADOR','SVC','Colon'),('SMR','SAN MARINO','ITL','Lira'),('SOM','SOMALIA','SOS','Shilling'),('SPM','ST. PIERRE AND MIQUELON','FRF','Franc'),('STP','SAO TOME AND PRINCIPE','STD','Dobra'),('SUR','SURINAME','SRG','Guilder'),('SVK','SLOVAKIA','SKK','Koruna'),('SVN','SLOVENIA','SIT','Tolar'),('SWE','SWEDEN','SEK','Krona'),('SWZ','SWAZILAND','SZL','Lilangeni'),('SYC','SEYCHELLES','SCR','Rupee'),('SYR','SYRIAN ARAB REPUBLIC','SYP','Pound'),('TCA','TURKS AND CAICOS ISLANDS','USD','Dollar'),('TCD','CHAD','XAF','C.F.A. Franc'),('TGO','TOGO','XOF','C.F.A. Franc'),('THA','THAILAND','THB','Baht'),('TJK','TAJIKISTAN','RUR','Russian Rouble'),('TKL','TOKELAU','NZD','N.Z. Dollar'),('TKM','TURKMENISTAN','TMM','Manat'),('TMP','EAST TIMOR','TPE','Timor Escudo/Indon. Rupiah'),('TON','TONGA','TOP','Pa\'anga'),('TTO','TRINIDAD AND TOBAGO','TTD','T.T. Dollar'),('TUN','TUNISIA','TND','Dinar'),('TUR','TURKEY','TRL','Lira'),('TUV','TUVALU','AUD','Australia Dollar'),('TWN','TAIWAN PROVINCE OF CHINA','TWD','Dollar'),('TZA','TANZANIA UNITED REPUBLIC OF','TZS','Shilling'),('UGA','UGANDA','UGX','Shilling'),('UKR','UKRAINE','UAK','Karbovanet'),('UMI','UNITED STATES MIN. OUTL. ISLS.','USD','Dollar'),('URY','URUGUAY','UYU','Peso'),('USA','UNITED STATES','USD','Dollar'),('UZB','UZBEKISTAN','UZS','Sum'),('VCT','SAINT VINCENT / GRENADINES','XCD','East Caribb. Dollar'),('VEN','VENEZUELA','VEB','Bolivar'),('VGB','VIRGIN ISLANDS (BRITISH)','USD','Dollar'),('VIR','VIRGIN ISLANDS (U.S.)','USD','Dollar'),('VNM','VIET NAM','VND','Dong'),('VUT','VANUATU','VUV','Vatu'),('WLF','WALLIS AND FUTUNA ISLANDS','XPF','C.F.P. Franc'),('WSM','SAMOA WESTERN','WST','Tala'),('YEM','YEMEN','YER','Riyal'),('YUG','YUGOSLAVIA','YUN','New Dinar'),('ZAF','SOUTH AFRICA','ZAR','Rand'),('ZAR','ZAIRE','ZRN','New Zaire'),('ZMB','ZAMBIA','ZMK','Kwacha'),('ZWE','ZIMBABWE','ZWD','Zimb. Dollar');
+/*!40000 ALTER TABLE `countries` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-11-23 10:11:24
